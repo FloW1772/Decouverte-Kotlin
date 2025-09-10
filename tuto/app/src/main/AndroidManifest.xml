@@ -13,7 +13,7 @@
         android:theme="@style/Theme.DemoAndroid">
 
         <activity
-            android:name=".demo_nav.PageOneActivity"
+            android:name=".demo_mvvm.DemoMVVMActivity"
             android:exported="true"
             android:theme="@style/Theme.DemoAndroid">
 

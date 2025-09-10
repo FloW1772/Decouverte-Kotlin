@@ -13,17 +13,23 @@
         android:theme="@style/Theme.DemoAndroid">
 
         <activity
-            android:name=".MainActivity"
+            android:name=".demo_nav.PageOneActivity"
             android:exported="true"
-            android:label="@string/title_activity_main"
             android:theme="@style/Theme.DemoAndroid">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-    </application>
 
+        <activity
+            android:name=".demo_nav.PageTwoActivity"
+            android:exported="true"
+            android:theme="@style/Theme.DemoAndroid">
+        </activity>
+
+    </application>
 </manifest>
+
+

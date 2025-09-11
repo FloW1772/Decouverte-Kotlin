@@ -1,33 +1,38 @@
 package com.example.exo5tp.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.exo5tp.model.Article
+import com.example.exo5tp.network.ArticleService
+import com.example.exo5tp.network.RetrofitTools
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import com.example.exo5tp.model.Article
+import kotlinx.coroutines.launch
 
-// ViewModel qui gère la liste d'articles
 class ArticleViewModel : ViewModel() {
+    private val service = RetrofitTools.retrofit.create(ArticleService::class.java)
 
-    // Liste observable des articles
     private val _articles = MutableStateFlow<List<Article>>(emptyList())
     val articles: StateFlow<List<Article>> = _articles
 
-    private var nextId = 1
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading
 
-    // Ajouter un nouvel article
-    fun addArticle(titre: String) {
-        val newArticle = Article(id = nextId++, titre = titre)
-        _articles.value = _articles.value + newArticle
+    fun fetchArticles() {
+        viewModelScope.launch {
+            try {
+                _isLoading.value = true
+                val apiArticles = service.getArticles()
+                _articles.value = apiArticles
+            } catch (e: Exception) {
+                e.printStackTrace()
+            } finally {
+                _isLoading.value = false
+            }
+        }
     }
 
-    // Supprimer un article par son id
     fun removeArticle(id: Int) {
         _articles.value = _articles.value.filter { it.id != id }
-    }
-
-    // Vider complètement la liste
-    fun clearArticles() {
-        _articles.value = emptyList()
-        nextId = 1
     }
 }

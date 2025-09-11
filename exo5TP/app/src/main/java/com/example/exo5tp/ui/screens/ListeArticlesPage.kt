@@ -2,15 +2,17 @@ package com.example.exo5tp.ui.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.*   // ✅ remplace "Composable" par "*" pour inclure collectAsState
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel   // ✅ indispensable
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.exo5tp.ui.helpers.LoadingDialog
 import com.example.exo5tp.viewmodel.ArticleViewModel
 
 @Composable
 fun ListeArticlesPage(onNavigate: (String) -> Unit, articleViewModel: ArticleViewModel = viewModel()) {
     val articles by articleViewModel.articles.collectAsState()
+    val isLoading by articleViewModel.isLoading.collectAsState()
 
     Column(
         modifier = Modifier
@@ -21,16 +23,13 @@ fun ListeArticlesPage(onNavigate: (String) -> Unit, articleViewModel: ArticleVie
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Affichage dynamique avec bouton suppression
         articles.forEach { article ->
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 4.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text("📦 ${article.titre}")
-                TextButton(onClick = { articleViewModel.removeArticle(article.id) }) {
+            Column(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)) {
+                Text(article.titre ?: "Sans titre", style = MaterialTheme.typography.titleLarge)
+                Text("Auteur : ${article.auteur ?: "Inconnu"}", style = MaterialTheme.typography.bodySmall)
+                Text(article.contenu ?: "Pas de contenu", style = MaterialTheme.typography.bodyMedium)
+                Spacer(modifier = Modifier.height(8.dp))
+                Button(onClick = { articleViewModel.removeArticle(article.id) }) {
                     Text("❌ Supprimer")
                 }
             }
@@ -39,10 +38,10 @@ fun ListeArticlesPage(onNavigate: (String) -> Unit, articleViewModel: ArticleVie
         Spacer(modifier = Modifier.height(24.dp))
 
         ElevatedButton(
-            onClick = { articleViewModel.addArticle("Article de test") },
+            onClick = { articleViewModel.fetchArticles() },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Ajouter un article")
+            Text("📡 Charger depuis l'API")
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -54,4 +53,7 @@ fun ListeArticlesPage(onNavigate: (String) -> Unit, articleViewModel: ArticleVie
             Text("Se déconnecter")
         }
     }
+
+    // Popup chargement
+    LoadingDialog(isVisible = isLoading)
 }

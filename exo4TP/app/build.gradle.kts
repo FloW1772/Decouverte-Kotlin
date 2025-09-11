@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.demoandroid"
+    namespace = "com.example.exo4tp"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.demoandroid"
+        applicationId = "com.example.exo3tp"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
@@ -42,8 +42,6 @@ android {
 dependencies {
 
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
@@ -51,7 +49,6 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.foundation)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -59,16 +56,11 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
-    implementation("io.coil-kt:coil-compose:2.7.0")
+    implementation("androidx.activity:activity-compose:1.9.0") // pour setContent { }
+    implementation("androidx.compose.ui:ui:1.7.0")            // Compose UI
+    implementation("androidx.compose.material3:material3:1.3.0") // Material3
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.4") // collectAsState
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.4") // viewModel()
+// ou dernière version
 
-    // Moshi
-    implementation("com.squareup.moshi:moshi:1.14.0")
-    implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
-
-    // Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
-
-    // Ok HTTP
-    implementation("com.squareup.okhttp3:okhttp:4.9.0")
 }

@@ -57,3 +57,8 @@ fun ListeArticlesPage(onNavigate: (String) -> Unit, articleViewModel: ArticleVie
     // Popup chargement
     LoadingDialog(isVisible = isLoading)
 }
+
+@Composable
+fun LoadingDialog(isVisible: Boolean) {
+    TODO("Not yet implemented")
+}

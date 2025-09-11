@@ -24,3 +24,5 @@ fun LoadingDialog(isVisible: Boolean) {
         )
     }
 }
+
+annotation class LoadingDialog

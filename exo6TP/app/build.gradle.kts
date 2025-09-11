@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.exo6tp"
+    namespace = "com.example.exo5tp"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.exo6tp"
+        applicationId = "com.example.exo5tp"
         minSdk = 24
         targetSdk = 36
         versionCode = 1

@@ -1,4 +1,4 @@
-package com.example.exo5tp.ui.theme
+package com.example.exo6tp.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

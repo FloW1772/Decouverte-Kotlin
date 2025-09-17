@@ -3,36 +3,48 @@ package com.example.exo6tp.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.exo6tp.model.Article
-import com.example.exo6tp.network.ArticleService
-import com.example.exo6tp.network.RetrofitTools
+import com.example.exo6tp.network.ApiClient
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class ArticleViewModel : ViewModel() {
-    private val service = RetrofitTools.retrofit.create(ArticleService::class.java)
 
     private val _articles = MutableStateFlow<List<Article>>(emptyList())
-    val articles: StateFlow<List<Article>> = _articles
+    val articles: StateFlow<List<Article>> get() = _articles
 
     private val _isLoading = MutableStateFlow(false)
-    val isLoading: StateFlow<Boolean> = _isLoading
+    val isLoading: StateFlow<Boolean> get() = _isLoading
 
-    fun fetchArticles() {
+    private val _errorMessage = MutableStateFlow<String?>(null)
+    val errorMessage: StateFlow<String?> get() = _errorMessage
+
+    fun loadArticles() {
         viewModelScope.launch {
+            _isLoading.value = true
+            _errorMessage.value = null
             try {
-                _isLoading.value = true
-                val apiArticles = service.getArticles()
-                _articles.value = apiArticles
+                val response = ApiClient.apiService.getArticles()
+                _articles.value = response.articles // Ici on récupère bien la liste depuis l'objet
             } catch (e: Exception) {
-                e.printStackTrace()
+                _errorMessage.value = "Erreur réseau : ${e.message}"
             } finally {
                 _isLoading.value = false
             }
         }
     }
 
-    fun removeArticle(id: Int) {
-        _articles.value = _articles.value.filter { it.id != id }
+    fun deleteArticle(id: String) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                ApiClient.apiService.deleteArticle(id)
+                loadArticles() // Rafraîchir la liste après suppression
+            } catch (e: Exception) {
+                _errorMessage.value = "Erreur suppression : ${e.message}"
+            } finally {
+                _isLoading.value = false
+            }
+        }
     }
 }

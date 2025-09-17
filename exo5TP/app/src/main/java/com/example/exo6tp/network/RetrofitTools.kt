@@ -6,8 +6,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitTools {
-    private const val BASE_URL =
-        "https://raw.githubusercontent.com/Chocolaterie/EniWebService/main/api/"
+
+    private const val BASE_URL = "http://127.0.0.1:3000/"
 
     private val logging = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
@@ -18,7 +18,7 @@ object RetrofitTools {
         .build()
 
     val retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl(BASE_URL) // <- IMPORTANT : se termine toujours par /
+        .baseUrl(BASE_URL)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
         .build()

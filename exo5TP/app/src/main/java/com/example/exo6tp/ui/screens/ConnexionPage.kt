@@ -1,4 +1,4 @@
-package com.example.exo5tp.ui.screens
+package com.example.exo6tp.ui.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*

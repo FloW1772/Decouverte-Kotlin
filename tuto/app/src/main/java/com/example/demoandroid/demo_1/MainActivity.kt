@@ -34,29 +34,29 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun BackgroundImage() {
+fun BackgroundImage(){
     Image(
-        painter = painterResource(id = R.drawable.mobile_bg_01),
-        contentDescription = null,
+        painter = painterResource(R.drawable.mobile_bg_01),
+        contentDescription = "",
         contentScale = ContentScale.Crop,
         modifier = Modifier.fillMaxSize()
     )
 }
 
 @Composable
-fun MainPage() {
+fun MainPage(){
     DemoAndroidTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
                 BackgroundImage()
-                Column(modifier = Modifier.fillMaxSize().padding(all=60.dp).padding(top = 250.dp)) {
-                    Text(text = "Hello Chocolatine")
-                    Text(text = "Incroyable BuIk")
+                Column(modifier = Modifier.fillMaxSize().padding(60.dp).padding(top = 250.dp)) {
+                    Text("Hello Chocolatine")
+                    Text("Incroyable Bulk")
                     TextField(value = "", onValueChange = {}, placeholder = {
-                        Text(text = "Veuillez saisir une information")
+                        Text("Veuillez saisir une information")
                     })
                     ElevatedButton(onClick = {}, modifier = Modifier.fillMaxWidth()) {
-                        Text(text="Envoyer le formulaire")
+                        Text("Envoyer le formulaire")
                     }
                 }
             }

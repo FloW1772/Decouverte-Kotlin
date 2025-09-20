@@ -27,24 +27,20 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MainPage() {
-    val persons = listOf(
+fun MainPage(){
+    var persons = mutableListOf(
         "Isaac",
         "Gregory"
     )
 
     DemoAndroidTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding)
-            ) {
+            Column(modifier = Modifier.fillMaxSize().padding(innerPadding)) {
                 Text("Demo ListView")
 
                 LazyColumn {
                     items(persons) { person ->
-                        Text(text = person)
+                        Text(text=person)
                     }
                 }
             }

@@ -35,7 +35,8 @@ class PageTwoActivity : ComponentActivity() {
 
 @Composable
 fun PageTwo() {
-    val context = LocalContext.current  // ✅ récupérer le contexte
+    // Récupérer le context actuel de l'appli (important pour plein de chose)
+    val context = LocalContext.current
 
     DemoAndroidTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
@@ -55,10 +56,11 @@ fun PageTwo() {
 
                     ElevatedButton(
                         onClick = {
-                            // ✅ utilisation correcte du contexte
+                            // Le code pour changer de page
                             val intent = Intent(context, PageOneActivity::class.java)
                             context.startActivity(intent)
-                        },                        modifier = Modifier.fillMaxWidth()
+                        },
+                        modifier = Modifier.fillMaxWidth()
                     ) {
                         Text("Revenir sur la page 1")
                     }
